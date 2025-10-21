@@ -1,17 +1,55 @@
 import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import Users from './pages/Users'
+import Products from './pages/Products'
+import Profile from './pages/Profile'
+import Settings from './pages/Settings'
+import NotFound from './pages/NotFound'
+import DashboardLayout from './layouts/DashboardLayout'
+import { useAuthStore } from './store/useAuthStore'
+
+function ProtectedRoute({ children, requireAdmin = false }) {
+  const { user } = useAuthStore()
+  if (!user) return <Navigate to="/login" replace />
+  if (requireAdmin && user.role !== 'admin') return <Navigate to="/dashboard" replace />
+  return children
+}
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 text-center p-10">
-      <h1 className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-        🎉 Bisara System Berhasil Jalan!
-      </h1>
-      <p className="text-gray-700 dark:text-gray-300 mt-4">
-        Ini adalah tampilan utama React App kamu yang berhasil dirender dari <code>App.jsx</code>.
-      </p>
-      <p className="text-sm text-gray-500 mt-6">
-        Dark mode aktif jika kamu ubah preferensi di localStorage.
-      </p>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Navigate to="/dashboard" replace />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/dashboard/*"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Routes>
+                <Route index element={<Dashboard />} />
+                <Route path="users" element={<ProtectedRoute requireAdmin><Users /></ProtectedRoute>} />
+                <Route path="products" element={<Products />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
