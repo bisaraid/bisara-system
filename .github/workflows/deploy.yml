@@ -29,3 +29,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+      - name: Done message
+        run: echo "✅ Deployment selesai! Cek https://bisaraid.github.io/bisara-system/"
