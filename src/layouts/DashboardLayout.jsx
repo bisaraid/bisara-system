@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar'
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <Navbar />
       <div className="flex">
         <Sidebar />
