@@ -1,1 +1,27 @@
+{
+  "name": "bisara-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bisara System - React + Vite + Tailwind (front-end only)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,ts,tsx,json,md}\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "zustand": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.5.5",
+    "vite": "^5.0.13",
+    "prettier": "^2.8.8"
+  }
+}
 
